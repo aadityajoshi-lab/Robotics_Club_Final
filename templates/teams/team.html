@@ -1,0 +1,136 @@
+{% extends "base.html" %} {% load static %} {% block title %}Team | Robotics
+Club{% endblock %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/team.css' %}?v=2" />
+{% endblock %} 
+
+
+
+{% block content %}
+{% if team_members %}
+<div class="team-info">
+  <h1>Meet The Team</h1>
+  <hr class="horizontal-line" />
+  <p>
+    Meet the individuals who lead our club, organize events, and mentor new
+    members.
+  </p>
+  <h2 class="leadership-heading">Leadership</h2>
+  <hr class="horizontal-line" />
+  <div class="leadership-names">
+    {% for member in team_members %}
+    <!-- Team Member Card -->
+<div class="member-complete-info">
+  <div class="team-container">
+
+    <div class="image-member">
+      <img src="{{ member.photo.url }}" alt="{{ member.name }}" />
+    </div>
+<div class="text-content-member">
+  <span>{{ member.name }}</span>
+  <span>{{ member.post }}</span>
+  <p>{{ member.get_faculty_display }} ({{ member.batch }})</p>
+
+  {# ✅ Contact info (optional) #}
+  {% if member.phone_number or member.email %}
+    <div class="member-contact">
+      {% if member.phone_number %}
+        <p class="member-contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <a href="tel:{{ member.phone_number }}">{{ member.phone_number }}</a>
+        </p>
+      {% endif %}
+
+      {% if member.email %}
+        <p class="member-contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <a href="mailto:{{ member.email }}">{{ member.email }}</a>
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if member.profile_file %}
+    <a href="{{ member.profile_file.url }}" target="_blank" rel="noopener">
+      <button class="team-btn">View Profile</button>
+    </a>
+  {% elif member.profile_link %}
+    <a href="{{ member.profile_link }}" target="_blank" rel="noopener">
+      <button class="team-btn">View Profile</button>
+    </a>
+  {% endif %}
+
+  {# ✅ Social media (optional) #}
+  {% if member.github or member.linkedin or member.instagram or member.facebook %}
+    <div class="member-social-media">
+      {% if member.github %}
+        <a href="{{ member.github }}" target="_blank" rel="noopener" aria-label="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      {% endif %}
+
+      {% if member.linkedin %}
+        <a href="{{ member.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+      {% endif %}
+
+      {% if member.instagram %}
+        <a href="{{ member.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      {% endif %}
+
+      {% if member.facebook %}
+        <a href="{{ member.facebook }}" target="_blank" rel="noopener" aria-label="Facebook">
+          <i class="fa-brands fa-facebook"></i>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+  </div>
+</div>
+
+    {% endfor %}
+  </div>
+</div>
+
+
+{% else %}
+<section class="loader-section">
+  <div class="loader">
+    <div class="dot" style="--i: 0"></div>
+    <div class="dot" style="--i: 1"></div>
+    <div class="dot" style="--i: 2"></div>
+    <div class="dot" style="--i: 3"></div>
+    <div class="dot" style="--i: 4"></div>
+    <div class="dot" style="--i: 5"></div>
+    <div class="dot" style="--i: 6"></div>
+    <div class="dot" style="--i: 7"></div>
+    <div class="dot" style="--i: 8"></div>
+    <div class="dot" style="--i: 9"></div>
+  </div>
+  <h2>No Team Members available at the moment. Please check back later.</h2>
+  <div class="loader">
+    <div class="dot" style="--i: 0"></div>
+    <div class="dot" style="--i: 1"></div>
+    <div class="dot" style="--i: 2"></div>
+    <div class="dot" style="--i: 3"></div>
+    <div class="dot" style="--i: 4"></div>
+    <div class="dot" style="--i: 5"></div>
+    <div class="dot" style="--i: 6"></div>
+    <div class="dot" style="--i: 7"></div>
+    <div class="dot" style="--i: 8"></div>
+    <div class="dot" style="--i: 9"></div>
+  </div>
+</section>
+
+{% endif %}
+
+
+
+
+
+  {% endblock %}
+

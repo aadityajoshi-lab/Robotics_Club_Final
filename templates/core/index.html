@@ -1,0 +1,117 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block title %}Home | Robotics Club{% endblock %} 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/index.css' %}?v=2" />
+{% endblock %} 
+
+{% block content %}
+<div class="hex-container">
+  <div class="hex-wrapper">
+    <div id="cursor"></div>
+
+    <div id="hex-grid"></div>
+
+    <section class="content">
+      <div class="text-box">
+        <h2 class="animated-box">Designing the digital tomorrow <i style="color: var(--rose-red);" class="fa-solid fa-rocket"></i></h2>
+        <img src="{% static 'images/banner.png' %}" alt="Robotic Club Banner" />
+        <p>
+          Learn, experiment, and innovate with fellow tech enthusiasts as we
+          bring ideas to life through electronics, robotics, and interactive
+          workshops.
+        </p>
+        <div class="hero-btns">
+          <a href="{% url 'contact' %}" class="hero-btn-1">Join With Us</a>
+          <a href="{% url 'events' %}" class="hero-btn-2">Explore Events</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<section class="our-vision">
+  <h1>
+    DREAM. DESIGN. <br />
+    DEPLOY.
+  </h1>
+  <hr class="horizontal-line" />
+  <p>
+    The KEC Robotics Club is a hub where circuits come alive, robots take shape,
+    and ideas evolve into real-world creations. Our community welcomes learners
+    at every level, offering workshops, tech talks, and competitions that ignite
+    curiosity and innovation. Through shared knowledge, tutorials, and a
+    collaborative spirit, we build a space where technology grows—and creators
+    grow with it.
+  </p>
+</section>
+
+<div class="vision-wrapper">
+  <!-- Heading box top-left -->
+  <div class="vision-heading">
+    <h1>Our Vision</h1>
+  </div>
+  <!-- Paragraph bottom-left -->
+  <div class="vision-text">
+    <p>
+      At KEC Robotics Club, we aspire to be the hub of innovation in Electronics
+      and Robotics — a vibrant community where curiosity sparks creativity. We
+      aim to provide a dynamic and inclusive platform for students to explore,
+      experiment, and build projects that push the boundaries of technology.
+    </p>
+    <p>
+      Through collaboration, hands-on learning, and mentorship, we empower
+      members to transform ideas into real-world solutions, grow as engineers
+      and problem-solvers, and contribute to a thriving culture of innovation.
+    </p>
+  </div>
+  <!-- 3D Robot on the right -->
+  <spline-viewer
+    class="robot-3d"
+    url="https://prod.spline.design/fCyC3aCtQdVc-UDv/scene.splinecode"
+  ></spline-viewer>
+  <script
+    type="module"
+    src="https://unpkg.com/@splinetool/viewer@1.12.0/build/spline-viewer.js"
+  ></script>
+  <!-- Optional blur behind heading -->
+  <div class="layer-blur"></div>
+</div>
+
+<section class="gallery-section">
+  <div class="gallery-box">
+    <h1>HIGHLIGHTS GALLERY</h1>
+    <hr class="horizontal-line" />
+
+    <div class="scroll">
+      <div class="scroll-content">
+        <!-- FIRST SET -->
+        <img src="{% static 'images/gallery1.png' %}" />
+        <img src="{% static 'images/gallery2.jpg' %}" />
+        <img src="{% static 'images/gallery3.jpg' %}" />
+        <img src="{% static 'images/gallery4.jpg' %}" />
+        <img src="{% static 'images/gallery5.jpg' %}" />
+        <img src="{% static 'images/gallery6.jpg' %}" />
+        <img src="{% static 'images/gallery7.jpg' %}" />
+
+        <!-- DUPLICATED SET -->
+        <img src="{% static 'images/gallery1.png' %}" />
+        <img src="{% static 'images/gallery2.jpg' %}" />
+        <img src="{% static 'images/gallery3.jpg' %}" />
+        <img src="{% static 'images/gallery4.jpg' %}" />
+        <img src="{% static 'images/gallery5.jpg' %}" />
+        <img src="{% static 'images/gallery6.jpg' %}" />
+        <img src="{% static 'images/gallery7.jpg' %}" />
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script
+  preload
+  src="https://cdn.jsdelivr.net/gh/andersonfds/spline-no-watermark/no-watermark.js"
+></script>
+{% endblock %}

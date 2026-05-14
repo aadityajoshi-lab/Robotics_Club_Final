@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Contact | Robotics Club{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/contact.css' %}?v=200" />
+{% endblock %}
+
+{% block content %}
+<div class="contact-page">
+  <div class="contact-page-text">
+    <h2>Contact Us</h2>
+    <hr class="horizontal-line">
+    <p>
+      Curious about us? Got questions, ideas, or need resources?
+      Drop us a message — we're always happy to help.
+    </p>
+  </div>
+
+  <div class="form-contact">
+    <!-- LEFT -->
+    <div class="form-contact-left">
+      <h2>Get In Touch</h2>
+
+      <div class="form-contact-email">
+        <div class="form-contact-email-1">
+          <i class="fa-solid fa-envelope gmail-icon fa-3x"></i>
+        </div>
+        <div class="form-contact-email-2">
+          <h4>Email</h4>
+          <a href="mailto:rbtkec@gmail.com">rbtkec@gmail.com</a>
+        </div>
+      </div>
+
+      <h3>Connect With Us</h3>
+      <div class="member-social-media">
+        <a href="https://www.linkedin.com/school/keckalimati/" target="_blank" rel="noopener">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="https://www.facebook.com/roboticskec" target="_blank" rel="noopener">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/rbtkec/" target="_blank" rel="noopener">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="mailto:rbtkec@gmail.com">
+          <i class="fa-solid fa-envelope gmail-icon"></i>
+        </a>
+      </div>
+
+      <hr class="full-line">
+
+      <h3>Our Location</h3>
+      <div class="location-google-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d441.57587857016836!2d85.2971538!3d27.6985381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb185c1f760535%3A0xf95b0b09030b2391!2sRobotics%20Club%20of%20KEC!5e0!3m2!1sen!2snp!4v1764170269533!5m2!1sen!2snp"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="form-contact-right">
+      <h2>Send Us a Message</h2>
+
+      <form id="contactForm" method="post" action="{% url 'contact' %}">
+        {% csrf_token %}
+
+        <div class="name-for-form">
+          <label for="id_name">Your Name</label>
+          <input id="id_name" type="text" placeholder="Enter your name" name="name" required>
+        </div>
+
+        <div class="email-for-form">
+          <label for="id_email">Your Email</label>
+          <input id="id_email" type="email" placeholder="Enter your email" name="email" required>
+        </div>
+
+        <div class="subject-for-form">
+          <label for="id_subject">Subject</label>
+          <input id="id_subject" type="text" placeholder="Enter subject" name="subject">
+        </div>
+
+        <div class="message-for-form">
+          <label for="id_message">Your Message</label>
+          <textarea id="id_message" rows="6" placeholder="Write your message here" name="message" required></textarea>
+        </div>
+
+        <div class="submit-button-for-form">
+          <button type="submit">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+  const notifications = document.querySelector('.notifications');
+  const form = document.getElementById('contactForm');
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  function createToast(type, message) {
+    if (!notifications) return;
+
+    let icon = 'fa-solid fa-circle-info';
+    if (type === 'success') icon = 'fa-solid fa-circle-check';
+    if (type === 'error') icon = 'fa-solid fa-circle-exclamation';
+    if (type === 'warning') icon = 'fa-solid fa-triangle-exclamation';
+    if (type === 'info') icon = 'fa-solid fa-circle-info';
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+      <i class="${icon}"></i>
+      <div class="notifi-content">
+        <div class="title">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+        <span>${message}</span>
+      </div>
+      <i class="fa-solid fa-xmark" onclick="(this.parentElement).remove()"></i>
+    `;
+
+    notifications.appendChild(toast);
+    setTimeout(() => toast.remove(), 5000);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const csrftoken = getCookie('csrftoken');
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrftoken,
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        body: formData,
+        credentials: "same-origin"
+      });
+
+      const contentType = res.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        createToast("error", "Server response was not JSON. Check your view.");
+        return;
+      }
+
+      const data = await res.json();
+      createToast(data.success ? "success" : "error", data.message || "Done.");
+
+      if (data.success) form.reset();
+    } catch (err) {
+      console.error(err);
+      createToast("error", "Something went wrong. Please try again.");
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Events | Robotics Club{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/events.css' %}?v=200" />
+{% endblock %}
+
+{% block content %}
+
+{% if events %}
+<section class="event-page">
+  <header class="event-hero">
+    <h2>Upcoming Events</h2>
+    <hr class="horizontal-line" />
+    <p>Join us for workshops, competitions, and social gatherings...</p>
+  </header>
+
+  <div class="event-list">
+    {% for event in events %}
+    <article class="event-box">
+      <div class="event-left">
+        <div class="featured-event">Featured Event — {{ event.title }}</div>
+
+        <div class="event-meta">
+          <div class="meta-row">
+            <i class="fa-regular fa-calendar"></i>
+            <span>{{ event.date }}</span>
+          </div>
+
+          <div class="meta-row">
+            <i class="fa-regular fa-clock"></i>
+            <span>{{ event.total_time_of_event }}</span>
+          </div>
+
+          <div class="meta-row">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>{{ event.location }}</span>
+          </div>
+        </div>
+
+        <div class="event-info">
+          <p>{{ event.description }}</p>
+        </div>
+
+        {% if event.register_form %}
+        <div class="register-button">
+          <a class="register-link" href="{{ event.register_form }}" target="_blank" rel="noopener">
+            Register Now
+          </a>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="event-right">
+        {% if event.image_poster %}
+          <img src="{{ event.image_poster.url }}" alt="{{ event.title }} Poster" loading="lazy" />
+        {% else %}
+          <div class="poster-fallback">
+            <p>No poster available</p>
+          </div>
+        {% endif %}
+      </div>
+    </article>
+
+    {% if event.info_cards.all %}
+    <section class="additional-info">
+      <div class="resources-heading">
+        <h2>Additional Information</h2>
+        <hr class="horizontal-line" />
+        <p>Dive into curated tutorials and guides related to this event.</p>
+      </div>
+
+      <div class="resources-grid">
+        {% for card in event.info_cards.all %}
+        <div class="resource-card">
+          <div class="resource-box">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.description }}</p>
+
+            {% if card.file_link %}
+            <a class="resource-link" href="{{ card.file_link }}" target="_blank" rel="noopener">
+              Access Resource <i class="fa-solid fa-link"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% endfor %}
+  </div>
+</section>
+
+{% else %}
+<section class="loader-section">
+  <div class="loader">
+    {% for i in "0123456789" %}
+      <div class="dot" style="--i: {{ forloop.counter0 }}"></div>
+    {% endfor %}
+  </div>
+
+  <h2>No events available at the moment. Please check back later.</h2>
+
+  <div class="loader">
+    {% for i in "0123456789" %}
+      <div class="dot" style="--i: {{ forloop.counter0 }}"></div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Robotics Club{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'styles/base.css' %}?v=200" />
+    {% block extra_css %}{% endblock %}
+
+    <link rel="icon" type="image/png" href="{% static 'images/robotics-logo.png' %}" />
+  </head>
+
+  <body>
+
+    <header class="header">
+      <a href="{% url 'home' %}" class="logo">
+        <img src="{% static 'images/robotics-logo.png' %}" alt="Robotics Club" />
+      </a>
+
+      <i class="fa-solid fa-list" id="menu-icon" aria-label="Menu"></i>
+
+      <nav class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'events' %}">Events</a>
+        <a href="{% url 'teams' %}">Team</a>
+        <a href="{% url 'resources' %}">Resources</a>
+        <a href="{% url 'contact' %}">Contact</a>
+
+        <div class="nav-auth">
+          {% if user.is_authenticated %}
+            <a class="auth-btn" href="{% url 'logout' %}">Logout</a>
+          {% else %}
+            <a class="auth-btn" href="{% url 'login' %}">Log In</a>
+          {% endif %}
+        </div>
+      </nav>
+    </header>
+
+    <div class="nav-bg"></div>
+
+    <div class="notifications">
+      {% for message in messages %}
+        <div class="toast
+          {% if message.tags == 'success' %}success{% endif %}
+          {% if message.tags == 'error' %}error{% endif %}
+          {% if message.tags == 'warning' %}warning{% endif %}
+          {% if message.tags == 'info' %}info{% endif %}
+        ">
+          <i class="
+            {% if message.tags == 'success' %}fa-solid fa-circle-check{% endif %}
+            {% if message.tags == 'error' %}fa-solid fa-circle-exclamation{% endif %}
+            {% if message.tags == 'warning' %}fa-solid fa-triangle-exclamation{% endif %}
+            {% if message.tags == 'info' %}fa-solid fa-circle-info{% endif %}
+          "></i>
+
+          <div class="notifi-content">
+            <div class="title">{{ message.tags|capfirst }}</div>
+            <span>{{ message }}</span>
+          </div>
+
+          <i class="fa-solid fa-xmark toast-close" onclick="(this.parentElement).remove()"></i>
+        </div>
+      {% endfor %}
+    </div>
+
+    <main class="page-content">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+      <hr class="full-line" />
+      <div class="footer-container">
+        <div class="footer-items">
+          <div class="footer-item footer-logo">
+            <div class="footer-logos">
+              <img src="{% static 'images/kec-logo.png' %}" alt="KEC" />
+              <img src="{% static 'images/robotics-logo.png' %}" alt="Robotics Club" />
+            </div>
+
+            <div class="social">
+              <a href="mailto:rbtkec@gmail.com" target="_blank" rel="noopener">
+                <i class="fa-solid fa-envelope gmail-icon"></i>
+              </a>
+              <a href="https://www.facebook.com/roboticskec" target="_blank" rel="noopener">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="https://www.instagram.com/rbtkec/" target="_blank" rel="noopener">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-item">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'events' %}">Events</a></li>
+              <li><a href="{% url 'teams' %}">Team</a></li>
+              <li><a href="{% url 'resources' %}">Resources</a></li>
+              <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-item footer-contact">
+            <h3>Get in Touch</h3>
+            <div class="item">
+              <span>Find Us</span>
+              <p>Kalimati, Kathmandu, Nepal</p>
+            </div>
+            <div class="item">
+              <span>Call us</span>
+              <p><a href="tel:+9779869226586" class="phone-link">+977 9869226586</a></p>
+            </div>
+            <div class="item">
+              <span>Write Us</span>
+              <p>rbtkec@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="footer-item footer-links">
+            <h3>Important Links</h3>
+            <ul class="important-links">
+              <li><a href="https://www.kecktm.edu.np/" target="_blank" rel="noopener">KEC, Kalimati</a></li>
+              <li><a href="https://www.instagram.com/kec_electrical_club/" target="_blank" rel="noopener">Electrical Club</a></li>
+              <li><a href="https://www.instagram.com/epcnepal/" target="_blank" rel="noopener">Electronics Project Club</a></li>
+              <li><a href="https://itclub.kecktm.edu.np/" target="_blank" rel="noopener">IT Club</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-copyright">
+          <p>&copy; 2025 Robotics Club, KEC. All rights reserved.</p>
+          <p>Made with <i class="fa-solid fa-heart"></i> by Aaditya Joshi</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Auto-remove toasts after 5s
+      document.querySelectorAll('.toast').forEach(toast => {
+        setTimeout(() => toast.remove(), 5000);
+      });
+    </script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

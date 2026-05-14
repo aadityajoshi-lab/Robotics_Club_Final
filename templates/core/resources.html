@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Resources | Robotics Club{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/resources.css' %}?v=200" />
+{% endblock %}
+
+{% block content %}
+
+{% if learning_resources or workshop_resources %}
+
+<!-- ================= LEARNING RESOURCES ================= -->
+<section class="learning-resources">
+  <div class="resources-heading">
+    <h2>Learning Resources</h2>
+    <hr class="horizontal-line" />
+    <p>
+      Dive into curated tutorials and guides to strengthen your understanding in
+      electronics and robotics.
+    </p>
+  </div>
+
+  <div class="all-resources">
+    {% for resource in learning_resources %}
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h2 class="watermark">{{ resource.id }}</h2>
+          <h3>{{ resource.title }}</h3>
+          <p>{{ resource.description }}</p>
+
+          {% if user.is_authenticated %}
+          <a href="{% url 'access_resource' 'learning' resource.id %}" target="_blank" rel="noopener">
+            Access Resource <i class="fa-solid fa-link"></i>
+          </a>
+          {% else %}
+          <a href="{% url 'login' %}?next={% url 'resources' %}">
+            Access Resource <i class="fa-solid fa-link"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<hr class="full-line" />
+
+<!-- ================= WORKSHOP RESOURCES ================= -->
+<section class="workshop-resources">
+  <div class="resources-heading">
+    <h2>Workshop Resources</h2>
+    <hr class="horizontal-line" />
+    <p>
+      Materials, slides, and workshop documents shared by the Robotics Club.
+    </p>
+  </div>
+
+  <div class="all-resources">
+    {% for resource in workshop_resources %}
+    <div class="card">
+      <div class="box">
+        <div class="content">
+          <h2 class="watermark">{{ resource.id }}</h2>
+          <h3>{{ resource.title }}</h3>
+          <p>{{ resource.description }}</p>
+
+          {% if user.is_authenticated %}
+          <a href="{% url 'access_resource' 'workshop' resource.id %}" target="_blank" rel="noopener">
+            Access Resource <i class="fa-solid fa-link"></i>
+          </a>
+          {% else %}
+          <a href="{% url 'login' %}?next={% url 'resources' %}">
+            Access Resource <i class="fa-solid fa-link"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% else %}
+
+<!-- ================= EMPTY STATE / LOADER ================= -->
+<section class="loader-section">
+  <div class="loader">
+    <div class="dot" style="--i:0"></div>
+    <div class="dot" style="--i:1"></div>
+    <div class="dot" style="--i:2"></div>
+    <div class="dot" style="--i:3"></div>
+    <div class="dot" style="--i:4"></div>
+    <div class="dot" style="--i:5"></div>
+    <div class="dot" style="--i:6"></div>
+    <div class="dot" style="--i:7"></div>
+    <div class="dot" style="--i:8"></div>
+    <div class="dot" style="--i:9"></div>
+  </div>
+
+  <h2>No resources available at the moment. Please check back later.</h2>
+
+  <div class="loader">
+    <div class="dot" style="--i:0"></div>
+    <div class="dot" style="--i:1"></div>
+    <div class="dot" style="--i:2"></div>
+    <div class="dot" style="--i:3"></div>
+    <div class="dot" style="--i:4"></div>
+    <div class="dot" style="--i:5"></div>
+    <div class="dot" style="--i:6"></div>
+    <div class="dot" style="--i:7"></div>
+    <div class="dot" style="--i:8"></div>
+    <div class="dot" style="--i:9"></div>
+  </div>
+</section>
+
+{% endif %}
+
+{% endblock %}
