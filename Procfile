@@ -1,0 +1,1 @@
+web: gunicorn robotics_club.wsgi:application
