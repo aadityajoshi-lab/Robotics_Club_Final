@@ -2,3 +2,15 @@ db.sqlite3
 __pycache__/
 .env
 venv/
+# Python
+*.py[cod]
+.env.local
+db.sqlite3
+
+# Virtual Environment
+.env/
+env/
+
+# IDEs
+.vscode/
+.idea/
