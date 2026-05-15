@@ -160,3 +160,8 @@ EMAIL_HOST_PASSWORD = 'lyjmyvrtchwqhswi'     # 🔴 Gmail App Password
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ADMIN_EMAIL = "aadityajoshi600@gmail.com"
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.railway.app"
+]
