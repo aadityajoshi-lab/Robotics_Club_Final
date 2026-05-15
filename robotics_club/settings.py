@@ -29,6 +29,16 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
+# --- Load the environment variables ---
+# This looks for the local file. If it doesn't exist (on Railway), it just skips it.
+env_path = BASE_DIR / '.env.local'
+if env_path.exists():
+    load_dotenv(dotenv_path=env_path)
+else:
+    # On Railway, it will use the Variables you set in the Dashboard
+    load_dotenv() 
+# --------------------------------------
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
