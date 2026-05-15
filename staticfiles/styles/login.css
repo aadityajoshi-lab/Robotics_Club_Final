@@ -1,0 +1,255 @@
+:root {
+  --black: #000000;
+  --white: #eeeeee;
+  --dark-red: #ec4e3d;
+  --rose-red: #8e1616;
+  --blue: #0078ab;
+  --sky-blue: #68c5db;
+  --light-blue: #bfd7fa;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: "Open Sans", sans-serif; */
+}
+/* layout: stack header/content/footer vertically */
+body {
+  min-height: 100vh;
+  background-color: var(--black);
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-image: url(../images/gradient.png);
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: auto;
+  background-attachment: scroll;
+  /* ensure content starts below fixed header */
+  padding-top: 120px;
+}
+/* center the page form while keeping footer at the bottom */
+.wrapper {
+  margin: 0 auto;
+  /* horizontal centering; vertical spacing handled by body padding to avoid overlap with fixed header */
+}
+
+.wrapper {
+  width: 400px;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  margin: 0px auto 40px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.input-field {
+  position: relative;
+  border-bottom: 2px solid #ccc;
+  margin: 15px 0;
+}
+.input-field label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.15s ease;
+}
+.input-field input {
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #fff;
+}
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+  font-size: 0.8rem;
+  top: 10px;
+  transform: translateY(-120%);
+}
+.forget {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 0 35px 0;
+  color: #fff;
+}
+#remember {
+  accent-color: #fff;
+}
+.forget label {
+  display: flex;
+  align-items: center;
+}
+.forget label p {
+  margin-left: 8px;
+}
+.wrapper a {
+  color: #efefef;
+  text-decoration: none;
+}
+.wrapper a:hover {
+  text-decoration: underline;
+}
+/* only for normal form submit buttons on login/register form */
+.wrapper button {
+    background: var(--blue);
+    color: var(--white);
+    font-weight: 600;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    border: 2px solid transparent;
+    transition: 0.3s ease;
+}
+
+.wrapper button:hover {
+  color: var(--white);
+  border-color: var(--rose-red);
+  background: var(--rose-red);
+}
+.register {
+  text-align: center;
+  margin-top: 30px;
+  color: #fff;
+}
+
+
+/* Fix Chrome autofill white background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+
+/* =========================
+   Responsive adjustments
+========================= */
+
+/* Tablets and small laptops */
+@media (max-width: 992px) {
+
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+
+  .input-field input,
+  .input-field label {
+    font-size: 14px;
+  }
+
+  .input-field input:focus ~ label,
+  .input-field input:valid ~ label {
+    font-size: 0.75rem;
+  }
+
+  .forget {
+    margin: 20px 0 25px 0;
+  }
+
+  .wrapper button {
+    padding: 10px 18px;
+    font-size: 15px;
+  }
+
+  .register {
+    margin-top: 25px;
+  }
+}
+
+/* Mobile devices (portrait) */
+@media (max-width: 768px) {
+
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+
+  .input-field input,
+  .input-field label {
+    font-size: 13px;
+  }
+
+  .input-field input:focus ~ label,
+  .input-field input:valid ~ label {
+    font-size: 0.7rem;
+  }
+
+  .forget {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 15px 0 20px 0;
+  }
+
+  .wrapper button {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .register {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+}
+
+/* Small mobile devices (portrait, very narrow) */
+@media (max-width: 480px) {
+
+  .wrapper {
+    width: 80%;
+    padding: 15px;
+    margin: 0 auto 20px;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .input-field input,
+  .input-field label {
+    font-size: 12px;
+  }
+
+  .input-field input:focus ~ label,
+  .input-field input:valid ~ label {
+    font-size: 0.65rem;
+  }
+
+  .forget {
+    margin: 12px 0 15px 0;
+  }
+
+  .wrapper button {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .register {
+    margin-top: 15px;
+    font-size: 13px;
+  }
+}
