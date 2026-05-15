@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+
+import dj_database_url
 from pathlib import Path
 import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -89,8 +91,11 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 #     }
 # }
 
+
 DATABASES = {
-    'default': env.db()
+    'default': dj_database_url.parse(
+        os.environ.get("DATABASE_URL")
+    )
 }
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
