@@ -19,7 +19,7 @@ menuIcon.addEventListener("click", () => {
 
 const hexWrapper = document.querySelector(".hex-wrapper");
 
-const rows = 13; 
+const rows = 10; 
 const hexPerRow = 25; 
 
 for (let r = 0; r < rows; r++) {
