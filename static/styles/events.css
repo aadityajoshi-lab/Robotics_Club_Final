@@ -175,18 +175,22 @@ body {
 .event-right {
   width: 50%;
   align-self: center;
+      overflow: hidden;
+
 }
 
 .event-right img {
-  width: auto;
-  max-height: 600px;
-  object-fit: cover;
-  display: block;
-  border-radius: 18px;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
 
-  border: 2px solid var(--blue);
-  box-shadow: 0px 0px 20px rgba(104, 197, 219, 0.6);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: block;
+    border-radius: 18px;
+    border: 2px solid var(--blue);
+    box-shadow: 0px 0px 20px rgba(104, 197, 219, 0.6);
+
+    object-fit: cover;
+    box-sizing: border-box;
 }
 
 .event-right img:hover {
