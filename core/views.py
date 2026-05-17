@@ -6,10 +6,16 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-
+from .models import GalleryImage
 # Create your views here.
 def home(request):
-    return render(request, 'core/index.html')
+    gallery_images = GalleryImage.objects.all()
+
+    context = {
+        'gallery_images': gallery_images,
+    }
+
+    return render(request, 'core/index.html',context)
 
 
 def Resources(request):

@@ -1,6 +1,6 @@
 from django.db import models
 from cloudinary_storage.storage import RawMediaCloudinaryStorage
-
+from cloudinary.models import CloudinaryField
 class LearningResource(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -36,3 +36,17 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return self.subject
+
+
+class GalleryImage(models.Model):
+    title = models.CharField(max_length=100, blank=True)
+
+    image = CloudinaryField(
+        'image',
+        folder='gallery_images'
+    )
+
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title if self.title else f"Image {self.id}"

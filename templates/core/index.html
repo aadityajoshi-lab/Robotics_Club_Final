@@ -85,23 +85,14 @@
 
     <div class="scroll">
       <div class="scroll-content">
-        <!-- FIRST SET -->
-        <img src="{% static 'images/gallery1.jpg' %}" />
-        <img src="{% static 'images/gallery2.jpg' %}" />
-        <img src="{% static 'images/gallery3.jpeg' %}" />
-        <img src="{% static 'images/gallery4.jpeg' %}" />
-        <img src="{% static 'images/gallery5.jpeg' %}" />
-        <img src="{% static 'images/gallery6.jpeg' %}" />
-        <img src="{% static 'images/gallery7.jpeg' %}" />
+  {% for image in gallery_images %}
+    <img src="{{ image.image.url }}" alt="Gallery Image">
+  {% endfor %}
 
-        <!-- DUPLICATED SET -->
-        <img src="{% static 'images/gallery1.jpg' %}" />
-        <img src="{% static 'images/gallery2.jpg' %}" />
-        <img src="{% static 'images/gallery3.jpeg' %}" />
-        <img src="{% static 'images/gallery4.jpeg' %}" />
-        <img src="{% static 'images/gallery5.jpeg' %}" />
-        <img src="{% static 'images/gallery6.jpeg' %}" />
-        <img src="{% static 'images/gallery7.jpeg' %}" />
+  <!-- duplicate for infinite scroll -->
+  {% for image in gallery_images %}
+    <img src="{{ image.image.url }}" alt="Gallery Image">
+  {% endfor %}
       </div>
     </div>
   </div>
