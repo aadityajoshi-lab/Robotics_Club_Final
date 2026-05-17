@@ -406,7 +406,7 @@ body {
 @media (max-width: 768px) {
 
     .team-info h1 {
-        /* padding-top: 50px; */
+        padding-top: 50px;
         font-size: 33px;
     }
 
