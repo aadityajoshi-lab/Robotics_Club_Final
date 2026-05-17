@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # Custom local apps
     'accounts',
     'core',
+    'anymail',
     'events',
     'teams',
 ]
@@ -147,12 +148,21 @@ TIME_ZONE = 'Asia/Kathmandu'
 USE_I18N = True
 USE_TZ = False
 
-# ==============================================================================
-# 8. EMAIL DISPATCH SYSTEM ARCHITECTURE
-# ==============================================================================
-ADMIN_EMAIL = "aadityajoshi600@gmail.com"
 
-# Outbound SMTP ports (587/465) are firewalled on standard cloud hosting plans.
-# We route emails to the console backend to prevent Gunicorn WORKER TIMEOUT crashes.
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = ADMIN_EMAIL
+# ==============================================================================
+   # 8. EMAIL DISPATCH SYSTEM ARCHITECTURE (HTTP API DRIVEN)
+   # ==============================================================================
+ADMIN_EMAIL = "aadityajoshi600@gmail.com"
+   
+if os.environ.get('DATABASE_URL'):
+    # Production HTTPS API Backend Configuration (Bypasses all firewall restrictions)
+    EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
+    ANYMAIL = {
+        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY"),
+       }
+       # Note: Default sandbox domain allows sending ONLY to your own account email.
+    DEFAULT_FROM_EMAIL = "Robotics Club <onboarding@resend.dev>"
+else:
+    # Local Development Fallback Workspace
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = ADMIN_EMAIL
