@@ -86,15 +86,17 @@ body {
 }
 
 .card {
-  position: relative;
-  width: min(320px, 92vw);
-  min-height: 440px;
-  border-radius: 15px;
   box-shadow:
     inset 5px 5px 5px rgba(0, 0, 0, 0.2),
     inset -5px -5px 15px rgba(255, 255, 255, 0.1),
     5px 5px 15px rgba(0, 0, 0, 0.3),
     -5px -5px 15px rgba(255, 255, 255, 0.1);
+}
+.card {
+  position: relative;
+  width: min(320px, 92vw);
+  height: 460px; /* fixed height */
+  border-radius: 15px;
 }
 
 .box {
@@ -160,11 +162,27 @@ body {
   font-weight: 300;
   color: var(--light-blue);
   line-height: 1.65;
+  margin-top: 10px;
+
   word-break: break-word;
   overflow-wrap: anywhere;
-  margin-top: 10px;
-}
 
+  /* IMPORTANT */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;   /* number of lines */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+.content {
+  position: relative;
+  padding: 22px;
+  text-align: center;
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 /* button */
 .content a {
   margin-top: auto; /* pushes button bottom */
