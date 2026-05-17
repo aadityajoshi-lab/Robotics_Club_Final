@@ -209,3 +209,6 @@ ADMIN_EMAIL = "aadityajoshi600@gmail.com"
 CSRF_TRUSTED_ORIGINS = [
     "https://*.railway.app"
 ]
+
+# Output emails to the console for testing instead of trying to send them
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
