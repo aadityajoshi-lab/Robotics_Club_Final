@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     # Custom local apps
     'accounts',
     'core',
@@ -128,17 +130,27 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 14  # 2 Weeks expiration window
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 # ==============================================================================
-# 6. STATIC AND MEDIA ASSETS CONFIGURATION
-# ==============================================================================
+   # 6. STATIC AND MEDIA ASSETS CONFIGURATION
+   # ==============================================================================
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+   # Check environment status to determine media storage engine type
+if os.environ.get('DATABASE_URL'):
+    # PRODUCTION: Offload all user uploads securely to Cloudinary permanent cloud storage
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+        'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    }
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    MEDIA_URL = '/media/'
+else:
+    # LOCAL DEVELOPMENT: Save locally to your computer's hard drive
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # ==============================================================================
 # 7. INTERNATIONALIZATION & SYSTEM TIMING
