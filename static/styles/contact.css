@@ -50,6 +50,8 @@ body {
   font-size: 80px;
   margin-bottom: 10px;
   transition: 0.2s ease;
+      margin-top: 70px;
+
 }
 .contact-page-text h2:hover {
   color: var(--light-blue);
@@ -219,7 +221,7 @@ body {
   }
 
   .contact-page-text h2 {
-    padding-top: 100px;
+    padding-top: 20px;
     font-size: 7vw;
   }
 
