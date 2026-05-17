@@ -28,8 +28,8 @@ else:
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-^9nv#!duef6z+j@9jisbggtxlwo(oyyv1cjbx%kt4#__1(4nc$')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Automatically turns off DEBUG mode if running on Railway production
-DEBUG = os.environ.get('RAILWAY_ENVIRONMENT') is None
+# Change this to True temporarily to find our bug
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -150,19 +150,11 @@ USE_TZ = False
 
 
 # ==============================================================================
-   # 8. EMAIL DISPATCH SYSTEM ARCHITECTURE (HTTP API DRIVEN)
-   # ==============================================================================
+# 8. EMAIL DISPATCH SYSTEM ARCHITECTURE
+# ==============================================================================
 ADMIN_EMAIL = "aadityajoshi600@gmail.com"
-   
-if os.environ.get('DATABASE_URL'):
-    # Production HTTPS API Backend Configuration (Bypasses all firewall restrictions)
-    EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
-    ANYMAIL = {
-        "RESEND_API_KEY": os.environ.get("RESEND_API_KEY"),
-       }
-       # Note: Default sandbox domain allows sending ONLY to your own account email.
-    DEFAULT_FROM_EMAIL = "Robotics Club <onboarding@resend.dev>"
-else:
-    # Local Development Fallback Workspace
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEFAULT_FROM_EMAIL = ADMIN_EMAIL
+
+# FORCE console backend everywhere (both local and Railway) to completely 
+# bypass Railway's network firewall restrictions.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = ADMIN_EMAIL
