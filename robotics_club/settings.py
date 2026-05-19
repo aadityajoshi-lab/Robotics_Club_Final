@@ -173,18 +173,17 @@ STORAGES = {
 # ==============================================================================
 # 8. EMAIL DISPATCH SYSTEM ARCHITECTURE (BREVO API DRIVEN)
 # ==============================================================================
-ADMIN_EMAIL = "aadityajoshi600@gmail.com"  # 👈 This must be your Brevo login email
+ADMIN_EMAIL = "rbtkec@gmail.com"  # 👈 CRITICAL: Ensure this is your NEW gmail address!
 
 if os.environ.get('DATABASE_URL'):
-    # PRODUCTION SETTINGS (Railway): Sends real emails to ANYONE via Brevo API
     EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
     ANYMAIL = {
         "SENDINBLUE_API_KEY": os.environ.get("BREVO_API_KEY"),
     }
     DEFAULT_FROM_EMAIL = f"Robotics Club <{ADMIN_EMAIL}>"
-    DEBUG = False 
+    SERVER_EMAIL = ADMIN_EMAIL
+    DEBUG = True  # 👈 CHANGE THIS TEMPORARILY TO TRUE TO SEE THE EXACT BUG
 else:
-    # LOCAL SETTINGS (Your computer): Prints emails to the terminal console
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = ADMIN_EMAIL
     DEBUG = True
