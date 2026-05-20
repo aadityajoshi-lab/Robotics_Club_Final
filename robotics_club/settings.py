@@ -50,10 +50,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Cloudinary
-    'cloudinary_storage',
-    'cloudinary',
-
     # Third-party
     'anymail',
 
@@ -153,20 +149,32 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # MEDIA (CLOUDINARY PRODUCTION)
 # =========================================================
 
-if os.environ.get('CLOUDINARY_CLOUD_NAME'):
-    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+# 1. Keep Cloudinary apps stable in your main INSTALLED_APPS list above:
+# INSTALLED_APPS = [ ..., 'cloudinary_storage', 'cloudinary', 'accounts', ... ]
+# Note: 'cloudinary_storage' MUST be placed BEFORE 'django.contrib.staticfiles' 
+# if managing static files, or simply keep it near the top of third-party apps.
 
+# 2. Refactor the Media Storage block to be explicitly declarative:
+CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME')
+
+if CLOUDINARY_CLOUD_NAME:
+    STORAGES = {
+        "default": {
+            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+        'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
         'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
         'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
     }
-
-    MEDIA_URL = '/media/'
+    MEDIA_URL = "/"
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
-
 # =========================================================
 # INTERNATIONALIZATION
 # =========================================================
