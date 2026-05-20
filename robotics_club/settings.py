@@ -155,6 +155,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # if managing static files, or simply keep it near the top of third-party apps.
 
 # 2. Refactor the Media Storage block to be explicitly declarative:
+# =========================================================
+# MEDIA (CLOUDINARY PRODUCTION / LOCAL FALLBACK)
+# =========================================================
+
 CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME')
 
 if CLOUDINARY_CLOUD_NAME:
@@ -166,13 +170,17 @@ if CLOUDINARY_CLOUD_NAME:
             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
         },
     }
+
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
         'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
         'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
     }
-    MEDIA_URL = "/"
+
+    # Points Cloudinary to look inside your asset folder structure 
+    MEDIA_URL = "/media/"
 else:
+    # Standard configuration for local offline development
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
 # =========================================================
