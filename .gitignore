@@ -14,3 +14,8 @@ env/
 # IDEs
 .vscode/
 .idea/
+# Django media uploads
+media/
+
+# Collected static files
+staticfiles/
