@@ -32,6 +32,8 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     ".onrender.com"
+    'roboticsclub.kecktm.edu.np',         
+    'www.roboticsclub.kecktm.edu.np',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
