@@ -5,6 +5,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+  (function () {
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.add('light-mode');
+    }
+  })();
+</script>
     <title>{% block title %}Robotics Club{% endblock %}</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -29,6 +36,15 @@
         <a href="{% url 'teams' %}">Team</a>
         <a href="{% url 'resources' %}">Resources</a>
         <a href="{% url 'contact' %}">Contact</a>
+
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle day and night mode" aria-pressed="false">
+  <span class="track">
+    <span class="thumb">
+      <i class="fa-solid fa-moon"></i>
+    </span>
+  </span>
+</button>
+
 
         <div class="nav-auth">
           {% if user.is_authenticated %}
@@ -147,6 +163,29 @@
     </script>
 
     <script src="{% static 'js/main.js' %}"></script>
+    <script>
+  (function () {
+    const html = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const icon = btn.querySelector('i');
+
+    function setIcon(isLight) {
+      icon.classList.remove('fa-moon', 'fa-sun');
+      icon.classList.add(isLight ? 'fa-sun' : 'fa-moon');
+    }
+
+    setIcon(html.classList.contains('light-mode'));
+
+    btn.addEventListener('click', function () {
+      html.classList.toggle('light-mode');
+      const isLight = html.classList.contains('light-mode');
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      setIcon(isLight);
+      btn.setAttribute('aria-pressed', String(isLight));
+    });
+  })();
+</script>
     {% block extra_js %}{% endblock %}
   </body>
 </html>

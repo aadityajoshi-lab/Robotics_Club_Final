@@ -487,3 +487,23 @@ body {
     height: 100vw;
   }
 }
+
+
+/* ===== Day/Night overrides for home page elements ===== */
+html.light-mode body {
+  background-image: none; /* the dark gradient texture doesn't suit a light bg */
+}
+
+html.light-mode .gallery-box {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+}
+
+html.light-mode .layer-blur {
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0) 80%
+  );
+}
