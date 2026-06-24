@@ -507,3 +507,12 @@ html.light-mode .layer-blur {
     rgba(0, 0, 0, 0) 80%
   );
 }
+/* ===== Hex grid visibility in light mode ===== */
+html.light-mode .hexagon {
+  background-color: #ffffff;
+  box-shadow: inset 0 0 0 1.5px rgba(142, 22, 22, 0.12); /* rose-red honeycomb edges */
+}
+
+html.light-mode .hexagon::before {
+  background-color: rgba(104, 197, 219, 0.1); /* sky-blue tint on left half */
+}
