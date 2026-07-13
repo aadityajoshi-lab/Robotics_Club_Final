@@ -5,14 +5,32 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>
+    <meta name="description"
+content="KEC Robotics Club is the official robotics club of Kathmandu Engineering College (KEC), Kalimati, Kathmandu, Nepal. Explore robotics projects, workshops, competitions and innovation activities.">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "KEC Robotics Club",
+  "alternateName": [
+    "Kathmandu Engineering College Robotics Club",
+    "Robotics Club KEC"
+  ],
+  "url": "https://www.roboticsclub.kecktm.edu.np",
+  "parentOrganization": {
+    "@type": "CollegeOrUniversity",
+    "name": "Kathmandu Engineering College"
+  }
+}
+</script>
+<script>
   (function () {
     if (localStorage.getItem('theme') === 'light') {
       document.documentElement.classList.add('light-mode');
     }
   })();
 </script>
-    <title>{% block title %}Robotics Club{% endblock %}</title>
+    <title>{% block title %}KEC Robotics Club | Kathmandu Engineering College Robotics Club{% endblock %}</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{% static 'styles/base.css' %}?v=200" />
